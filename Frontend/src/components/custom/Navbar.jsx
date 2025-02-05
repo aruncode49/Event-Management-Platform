@@ -25,7 +25,7 @@ const Navbar = () => {
       <div className="container mx-auto h-full flex items-center px-3 justify-between">
         {/* Logo */}
         <Link to="/">
-          <img src="/logo.svg" alt="Logo" className="h-7" />
+          <img src="/logo.svg" alt="Logo" className="h-8 sm:h-9" />
         </Link>
 
         {/* Sign In */}
@@ -37,10 +37,14 @@ const Navbar = () => {
 
         {/* Sign Out */}
         {!isAuthPage && isUserPresent && (
-          <Button onClick={onLogout} variant="destructive">
-            <LogOut />
-            Logout
-          </Button>
+          <div className="flex items-center gap-2 md:gap-3">
+            <Button onClick={() => navigate("/manage-event")}>
+              Create Event
+            </Button>
+            <Button title="Logout" onClick={onLogout} variant="secondary">
+              <LogOut />
+            </Button>
+          </div>
         )}
       </div>
     </div>

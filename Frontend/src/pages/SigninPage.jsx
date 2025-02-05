@@ -101,7 +101,8 @@ const SigninPage = () => {
       <Button
         onClick={onGuestLogin}
         disabled={userLoading || guestLoading}
-        className="w-full bg-green-500 hover:bg-green-600 mt-4"
+        variant="secondary"
+        className="w-full mt-4"
       >
         {guestLoading ? <Loader className="animate-spin" /> : "Login as Guest"}
       </Button>
