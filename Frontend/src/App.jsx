@@ -1,11 +1,18 @@
-import { Button } from "./components/ui/button";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import Navbar from "./components/custom/Navbar";
 
-function App() {
+const App = () => {
   return (
-    <>
-      <h1>Hello World</h1>
-    </>
+    <BrowserRouter>
+      <Navbar />
+      <div className="container mx-auto px-3 pt-14 min-h-screen">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
