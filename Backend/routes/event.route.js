@@ -17,14 +17,10 @@ router.post("/create", async (req, res) => {
     });
     await event.save();
     res.status(201).json({
-      success: true,
       message: "Event created successfully!",
     });
   } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: "Error while creating event!",
-    });
+    res.status(400).send("Error while creating event!");
   }
 });
 

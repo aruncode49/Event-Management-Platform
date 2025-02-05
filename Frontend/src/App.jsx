@@ -1,18 +1,27 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  Route,
+  createRoutesFromElements,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import Navbar from "./components/custom/Navbar";
+import SigninPage from "./pages/SigninPage";
+import SignupPage from "./pages/SignupPage";
+import Layout from "./components/custom/Layout";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Layout />}>
+      <Route index element={<HomePage />} />
+      <Route path="/sign-in" element={<SigninPage />} />
+      <Route path="/sign-up" element={<SignupPage />} />
+      <Route path="*" element={<p>Page not found</p>} />
+    </Route>
+  )
+);
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <Navbar />
-      <div className="container mx-auto px-3 pt-14 min-h-screen">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

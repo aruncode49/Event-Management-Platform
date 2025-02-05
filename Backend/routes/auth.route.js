@@ -9,6 +9,11 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   const { username, password } = req.body;
   try {
+    const isAlreadyRegistered = await User.findOne({ username });
+    if (isAlreadyRegistered) {
+      return res.status(400).send("This username is already exists!");
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({
       username,
@@ -16,14 +21,10 @@ router.post("/register", async (req, res) => {
     });
     await user.save();
     res.status(201).json({
-      success: true,
       message: "User registered successfully!",
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error registering user",
-    });
+    res.status(500).send("Error registering user");
   }
 });
 
@@ -41,7 +42,6 @@ router.post("/login", async (req, res) => {
           expiresIn: "1h",
         });
         res.status(200).json({
-          success: true,
           message: "User logged in successfully!",
           data: {
             access_token: token,
@@ -49,36 +49,20 @@ router.post("/login", async (req, res) => {
           },
         });
       } else {
-        res.status(400).json({
-          success: false,
-          message: "Invalid Password!",
-        });
+        res.status(400).send("Invalid Password!");
       }
     } else {
-      res.status(400).json({
-        success: false,
-        message: "No user found with that username!",
-      });
+      res.status(400).send("No user found with that username!");
     }
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error while logging as guest!",
-    });
+    res.status(500).send("Error while logging as guest!");
   }
 });
 
 // guest login route
-router.post("/guest-login", async (_, res) => {
+router.get("/guest-login", async (_, res) => {
   try {
     const guest = await User.findOne({ username: "guest" });
-    if (!guest) {
-      return res.status(404).json({
-        success: false,
-        message: "Guest user not found",
-      });
-    }
-
     const token = jwt.sign(
       { id: guest._id, role: guest.role },
       process.env.JWT_SECRET,
@@ -87,7 +71,6 @@ router.post("/guest-login", async (_, res) => {
       }
     );
     res.status(200).json({
-      success: true,
       message: "Successfully logged in as guest!",
       data: {
         access_token: token,
@@ -95,10 +78,7 @@ router.post("/guest-login", async (_, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error while logging as guest!",
-    });
+    res.status(500).send("Error while logging as guest!");
   }
 });
 
