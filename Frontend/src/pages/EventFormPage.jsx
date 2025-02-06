@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { Loader, X } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -138,7 +139,7 @@ const EventFormPage = () => {
   useEffect(() => {
     const isUserPresent = localStorage.getItem("user");
     if (!isUserPresent) {
-      return navigate("/sign-in");
+      navigate("/sign-in");
     }
   }, []);
 
@@ -175,12 +176,13 @@ const EventFormPage = () => {
           <label htmlFor="event-desc" className="text-neutral-700">
             Description
           </label>
-          <Input
+          <Textarea
             id="event-desc"
             type="text"
             placeholder="Enter event description"
             value={eventDesc}
             onChange={(e) => setEventDesc(e.target.value)}
+            className="min-h-32"
           />
         </div>
         <div className="space-y-1">
@@ -230,7 +232,11 @@ const EventFormPage = () => {
             disabled={imageUploading || imageUrl}
           />
         </div>
-        <Button type="submit" className="w-full p-3 mt-5">
+        <Button
+          disabled={imageUploading}
+          type="submit"
+          className="w-full p-3 mt-5"
+        >
           {loading ? (
             <Loader className="animate-spin" />
           ) : id ? (

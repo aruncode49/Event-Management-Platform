@@ -28,7 +28,7 @@ router.post("/create", async (req, res) => {
 // get all events
 router.get("/all-events", async (_, res) => {
   try {
-    const allEvents = await Event.find({}).populate("attendees", "username");
+    const allEvents = await Event.find({});
     res.status(200).json({
       allEvents,
     });
@@ -41,10 +41,6 @@ router.get("/all-events", async (_, res) => {
 router.delete("/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const event = await Event.findById(id);
-    if (event && !event.createdBy.equals(req.user.id)) {
-      return res.status(400).send("Only admin can delete this event");
-    }
     await Event.findByIdAndDelete(id);
     res.status(200).json({
       message: "Event deleted successfully!",
@@ -91,6 +87,39 @@ router.post("/update/:id", async (req, res) => {
     }
   } catch (error) {
     res.status(500).send("Error while updating an event!");
+  }
+});
+
+// Join Event
+router.post("/join-event/:id", async (req, res) => {
+  const eventId = req.params.id;
+  const userId = req.user.id;
+
+  try {
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).send("Event not found");
+    }
+
+    // Check if the user is already an attendee
+    if (event.attendees.includes(userId)) {
+      return res.status(400).send("You have already joined this event");
+    }
+
+    // Add the user to the attendees list
+    event.attendees.push(userId);
+    await event.save();
+
+    // Emit a real-time update to all clients in the event room
+    req.app.get("io").to(eventId).emit("attendeesUpdated", {
+      eventId,
+      attendees: event.attendees,
+    });
+
+    res.status(200).send("You have successfully joined this event!");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error while joining an event!");
   }
 });
 

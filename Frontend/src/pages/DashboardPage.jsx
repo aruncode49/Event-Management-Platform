@@ -32,18 +32,14 @@ const DashboardPage = () => {
     }
   };
 
-  const onDeleteEvent = (id) => {
-    const events = allEvents.filter((event) => event._id !== id);
-    setAllEvents(events);
-  };
-
   // effects
   useEffect(() => {
     const isUserPresent = localStorage.getItem("user");
     if (!isUserPresent) {
-      return navigate("/sign-in");
+      navigate("/sign-in");
+    } else {
+      fetchAllEvents(JSON.parse(isUserPresent));
     }
-    fetchAllEvents(JSON.parse(isUserPresent));
   }, []);
 
   return (
@@ -54,11 +50,13 @@ const DashboardPage = () => {
           <p>Loading Events...</p>
         </div>
       ) : allEvents && allEvents.length === 0 ? (
-        <p className="mt-10 text-neutral-700 text-center">No Event Found</p>
+        <p className="mt-10 text-neutral-700 text-center">
+          No Event Found. Please create a new event.
+        </p>
       ) : (
         <div>
           <h1 className="mt-7 text-xl font-semibold text-center">All Events</h1>
-          <Event allEvents={allEvents} onDeleteEvent={onDeleteEvent} />
+          <Event allEvents={allEvents} />
         </div>
       )}
     </div>
