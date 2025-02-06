@@ -15,7 +15,7 @@ const PORT = process.env.PORT;
 // Initialize socket io
 const io = new Server(server, {
   cors: {
-    origin: "https://event-management-platform-sigma.vercel.app/",
+    origin: "https://event-management-platform-sigma.vercel.app",
     methods: ["GET", "POST"],
   },
 });
