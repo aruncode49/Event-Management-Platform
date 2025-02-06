@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { isAuthenticated } from "../middlewares/auth.middleware.js";
 import { Event } from "../models/event.model.js";
 
 const router = Router();

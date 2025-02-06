@@ -38,7 +38,7 @@ const Navbar = () => {
         {/* Sign Out */}
         {!isAuthPage && isUserPresent && (
           <div className="flex items-center gap-2 md:gap-3">
-            <Button onClick={() => navigate("/manage-event")}>
+            <Button onClick={() => navigate("/create-event")}>
               Create Event
             </Button>
             <Button title="Logout" onClick={onLogout} variant="secondary">

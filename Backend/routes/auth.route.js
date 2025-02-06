@@ -38,9 +38,7 @@ router.post("/login", async (req, res) => {
       const isCorrectPassword = await bcrypt.compare(password, user.password);
       if (isCorrectPassword) {
         // generate token
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-          expiresIn: "1h",
-        });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
         res.status(200).json({
           message: "User logged in successfully!",
           data: {
@@ -65,10 +63,7 @@ router.get("/guest-login", async (_, res) => {
     const guest = await User.findOne({ username: "guest" });
     const token = jwt.sign(
       { id: guest._id, role: guest.role },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1h",
-      }
+      process.env.JWT_SECRET
     );
     res.status(200).json({
       message: "Successfully logged in as guest!",

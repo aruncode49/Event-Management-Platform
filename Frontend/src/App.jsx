@@ -18,7 +18,7 @@ const router = createBrowserRouter(
       <Route path="/sign-in" element={<SigninPage />} />
       <Route path="/sign-up" element={<SignupPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
-      <Route path="/manage-event/:id?" element={<EventFormPage />} />
+      <Route path="/create-event/:id?" element={<EventFormPage />} />
       <Route path="*" element={<p>Page not found</p>} />
     </Route>
   )

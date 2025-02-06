@@ -6,7 +6,7 @@ const Layout = () => {
   return (
     <>
       <Navbar />
-      <div className="pt-14 px-3 h-[calc(100vh-56px)] container mx-auto">
+      <div className="pt-14 px-3 h-screen container mx-auto">
         <Outlet />
       </div>
       <Toaster richColors />
