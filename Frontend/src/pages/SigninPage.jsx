@@ -29,6 +29,7 @@ const SigninPage = () => {
         toast.success(response.data.message);
         // save user details in local storage
         const user = {
+          id: response?.data?.data?.id,
           token: response?.data?.data?.access_token,
           role: response?.data?.data?.role,
         };
@@ -52,6 +53,7 @@ const SigninPage = () => {
         toast.success(response.data.message);
         // save guest details in local storage
         const guest = {
+          id: response?.data?.data?.id,
           token: response?.data?.data?.access_token,
           role: response?.data?.data?.role,
         };

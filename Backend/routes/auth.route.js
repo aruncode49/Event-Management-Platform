@@ -42,6 +42,7 @@ router.post("/login", async (req, res) => {
         res.status(200).json({
           message: "User logged in successfully!",
           data: {
+            id: user._id,
             access_token: token,
             role: "user",
           },
@@ -68,6 +69,7 @@ router.get("/guest-login", async (_, res) => {
     res.status(200).json({
       message: "Successfully logged in as guest!",
       data: {
+        id: guest._id,
         access_token: token,
         role: "guest",
       },
