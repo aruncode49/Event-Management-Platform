@@ -77,7 +77,7 @@ const Events = ({ allEvents }) => {
   // Listen for real-time attendee updates
   useEffect(() => {
     // Join all event rooms on load
-    events.forEach((event) => {
+    events?.forEach((event) => {
       socket.emit("joinEventRoom", event._id);
     });
 
