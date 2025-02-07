@@ -1,4 +1,4 @@
-## Event Management Platform Documentation
+## Event Management Platform
 
 ### Overview
 This project implements a comprehensive Event Management Platform using the MERN stack (MongoDB, Express.js, React.js, Node.js). It includes features for user authentication, event creation, real-time attendee updates, and a responsive design for seamless usability across devices.
