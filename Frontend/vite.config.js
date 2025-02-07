@@ -6,7 +6,7 @@ import path from "path";
 export default defineConfig({
   server: {
     proxy: {
-      "/api": "https://event-management-platform-at8y.onrender.com",
+      "/api": "https://event-management-platform-at8y.onrender.com/",
     },
   },
   plugins: [react()],
