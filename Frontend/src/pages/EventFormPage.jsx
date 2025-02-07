@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { baseUrl } from "@/lib/baseUrl";
 import axios from "axios";
 import { Loader, X } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -61,7 +62,7 @@ const EventFormPage = () => {
       if (id) {
         // update event
         const response = await axios.post(
-          `/api/event/update/${id}`,
+          `${baseUrl}/event/update/${id}`,
           {
             name: eventName,
             description: eventDesc,
@@ -81,7 +82,7 @@ const EventFormPage = () => {
       } else {
         // create event
         const response = await axios.post(
-          "/api/event/create",
+          `${baseUrl}/event/create`,
           {
             name: eventName,
             description: eventDesc,
@@ -110,7 +111,7 @@ const EventFormPage = () => {
   const fetchEventDetails = async (id) => {
     try {
       setFetchEventLoading(true);
-      const response = await axios.get(`/api/event/${id}`, {
+      const response = await axios.get(`${baseUrl}/event/${id}`, {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },

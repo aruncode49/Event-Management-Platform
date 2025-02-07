@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { baseUrl } from "@/lib/baseUrl";
 import axios from "axios";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -21,7 +22,7 @@ const SigninPage = () => {
     e.preventDefault();
     try {
       setUserLoading(true);
-      const response = await axios.post("/api/auth/login", {
+      const response = await axios.post(`${baseUrl}/auth/login`, {
         username,
         password,
       });
@@ -48,7 +49,7 @@ const SigninPage = () => {
   const onGuestLogin = async () => {
     try {
       setGuestLoading(true);
-      const response = await axios.get("/api/auth/guest-login");
+      const response = await axios.get(`${baseUrl}/auth/guest-login`);
       if (response?.data) {
         toast.success(response.data.message);
         // save guest details in local storage

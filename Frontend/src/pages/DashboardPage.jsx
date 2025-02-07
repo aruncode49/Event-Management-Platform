@@ -1,4 +1,5 @@
 import Event from "@/components/custom/Events";
+import { baseUrl } from "@/lib/baseUrl";
 import axios from "axios";
 import { Loader } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -17,7 +18,7 @@ const DashboardPage = () => {
   const fetchAllEvents = async (user) => {
     try {
       setLoading(true);
-      const response = await axios.get("/api/event/all-events", {
+      const response = await axios.get(`${baseUrl}/event/all-events`, {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },

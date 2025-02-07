@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import socket from "@/config/socket";
+import { baseUrl } from "@/lib/baseUrl";
 
 const Events = ({ allEvents }) => {
   // hooks
@@ -29,7 +30,7 @@ const Events = ({ allEvents }) => {
     const isConfirm = confirm("Are you absolutely sure?");
     if (!isConfirm) return;
     try {
-      const response = await axios.delete(`/api/event/delete/${id}`, {
+      const response = await axios.delete(`${baseUrl}/event/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
@@ -56,7 +57,7 @@ const Events = ({ allEvents }) => {
     try {
       setJoinEventLoading(true);
       const response = await axios.post(
-        `/api/event/join-event/${eventId}`,
+        `${baseUrl}/event/join-event/${eventId}`,
         {},
         {
           headers: {

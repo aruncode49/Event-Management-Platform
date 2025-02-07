@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { baseUrl } from "@/lib/baseUrl";
 import axios from "axios";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -24,7 +25,7 @@ const SignupPage = () => {
     }
     try {
       setLoading(true);
-      const response = await axios.post("/api/auth/register", {
+      const response = await axios.post(`${baseUrl}/auth/register`, {
         username,
         password,
       });
