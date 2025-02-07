@@ -17,6 +17,7 @@ const Events = ({ allEvents }) => {
   // state
   const [events, setEvents] = useState(allEvents);
   const [joinEventLoading, setJoinEventLoading] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState("");
 
   // actions
   const _onDeleteEvent = async (id, userId) => {
@@ -55,6 +56,7 @@ const Events = ({ allEvents }) => {
 
   const onJoinEvent = async (eventId) => {
     try {
+      setSelectedEvent(eventId);
       setJoinEventLoading(true);
       const response = await axios.post(
         `${baseUrl}/event/join-event/${eventId}`,
@@ -142,7 +144,7 @@ const Events = ({ allEvents }) => {
             </div>
 
             <Button onClick={() => onJoinEvent(event._id)}>
-              {joinEventLoading ? (
+              {event._id === selectedEvent && joinEventLoading ? (
                 <Loader className="animate-spin" />
               ) : (
                 "Join Event"
